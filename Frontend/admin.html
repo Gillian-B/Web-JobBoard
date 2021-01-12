@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="style_admin.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="jquery.serializejson.js"></script>
+        <script src="admin.js"></script>
+
+        <title>Admin</title>
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+        <nav>
+            <a href="index.html" class="btn btn-outline-primary">
+              &larr; Previous
+            </a>
+        </nav>
+        
+        <div id="selectTable" class="form-group mt-3">
+            <button type="button" class="btn btn-primary">Check all</button>
+            <div class="custom-control custom-control-inline custom-checkbox my-1 mr-sm-2">
+                <input class="custom-control-input" type="checkbox" id="c-adv">
+                <label class="custom-control-label" for="c-adv">Advertisements</label>
+            </div>
+            <div class="custom-control custom-control-inline custom-checkbox my-1 mr-sm-2">
+                <input class="custom-control-input" type="checkbox" id="c-comp">
+                <label class="custom-control-label" for="c-comp">Companies</label>
+            </div>
+            <div class="custom-control custom-control-inline custom-checkbox my-1 mr-sm-2">
+                <input class="custom-control-input" type="checkbox" id="c-job">
+                <label class="custom-control-label" for="c-job">Job</label>
+            </div>
+            <div class="custom-control custom-control-inline custom-checkbox my-1 mr-sm-2">
+                <input class="custom-control-input" type="checkbox" id="c-ppl">
+                <label class="custom-control-label" for="c-ppl">People</label>
+            </div>
+            <div class="custom-control custom-control-inline custom-checkbox my-1 mr-sm-2">
+                <input class="custom-control-input" type="checkbox" id="c-rel">
+                <label class="custom-control-label" for="c-rel">Relation</label>
+            </div>
+        </div>
+
+        <div id="adv">
+            <table class="table table-striped table-responsive">
+                <caption class="bg-primary text-white p-2">Advertisements <input class="myInput" type="text" placeholder="Search.."></caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">id</th>
+                        <th scope="col">title</th>
+                        <th scope="col">summary</th>
+                        <th scope="col">company</th>
+                        <th scope="col"></th>
+                        <th scope="col"><button id="create_adv" class="btn btn-outline-success rounded-circle ml-3" data-toggle="modal" data-target="#modalAdvertisementsForm"><i class="fa fa-plus fa-xs"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot class="bg-dark"><tr><td colspan="7"></td></tr></tfoot>
+            </table>
+        </div>
+
+        <div id="comp">
+            <table class="table table-striped table-responsive">
+                <caption class="bg-primary text-white p-2">Companies <input class="myInput" type="text" placeholder="Search.."></caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col"></th>
+                        <th scope="col"><button id="create_comp" class="btn btn-outline-success rounded-circle ml-3" data-toggle="modal" data-target="#modalCompaniesForm"><i class="fa fa-plus fa-xs"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot class="bg-dark"><tr><td colspan="5"></td></tr></tfoot>
+            </table>
+        </div>
+
+        <div id="job">
+            <table class="table table-striped table-responsive">
+                <caption class="bg-primary text-white p-2">Job <input class="myInput" type="text" placeholder="Search.."></caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">id_job</th>
+                        <th scope="col">description</th>
+                        <th scope="col">wage</th>
+                        <th scope="col">place</th>
+                        <th scope="col">working_time</th>
+                        <th scope="col"></th>
+                        <th scope="col"><button id="create_job" class="btn btn-outline-success rounded-circle ml-3" data-toggle="modal" data-target="#modalJobForm"><i class="fa fa-plus fa-xs"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot class="bg-dark"><tr><td colspan="8"></td></tr></tfoot>
+            </table>
+        </div>
+
+        <div id="ppl">
+            <table class="table table-striped table-responsive">
+                <caption class="bg-primary text-white p-2">People <input class="myInput" type="text" placeholder="Search.."></caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">id</th>
+                        <th scope="col">first_name</th>
+                        <th scope="col">last_name</th>
+                        <th scope="col">email</th>
+                        <th scope="col">phone</th>
+                        <th scope="col">password</th>
+                        <th scope="col"></th>
+                        <th scope="col"><button id="create_ppl" class="btn btn-outline-success rounded-circle ml-3" data-toggle="modal" data-target="#modalPeopleForm"><i class="fa fa-plus fa-xs"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot class="bg-dark"><tr><td colspan="9"></td></tr></tfoot>
+            </table>
+        </div>
+
+        <div id="rel">
+            <table class="table table-striped table-responsive">
+                <caption class="bg-primary text-white p-2">Relation <input class="myInput" type="text" placeholder="Search.."></caption>
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">id_ad</th>
+                        <th scope="col">id_people</th>
+                        <th scope="col">is_in_charge</th>
+                        <th scope="col">data_mail</th>
+                        <th scope="col"></th>
+                        <th scope="col"><button id="create_rel" class="btn btn-outline-success rounded-circle ml-3" data-toggle="modal" data-target="#modalRelationForm"><i class="fa fa-plus fa-xs"></i></button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+                <tfoot class="bg-dark"><tr><td colspan="7"></td></tr></tfoot>
+            </table>
+        </div>
+
+        <div class="modal fade" id="modalAdvertisementsForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="advertisementsForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Title</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4 id">
+                                <label for="adv-id">id</label>
+                                <input min="0" name="id" type="number" id="adv-id" class="form-control" readonly>
+                            </div>
+                    
+                            <div class="form-group mb-4">
+                                <label for="adv-title">title</label>
+                                <input name="title" type="text" id="adv-title" class="form-control" required>
+                            </div>
+                    
+                            <div class="form-group mb-4">
+                                <label for="adv-summary">summary</label>
+                                <textarea maxlength="490" name="summary" id="adv-summary" class="form-control" rows="5" cols="75" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="adv-company">company</label>
+                                <input min="0" name="company" type="number" id="adv-company" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Action</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalCompaniesForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="companiesForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Title</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4 id">
+                                <label for="comp-id">id</label>
+                                <input min="0" name="id" type="number" id="comp-id" class="form-control" readonly>
+                            </div>
+                    
+                            <div class="form-group mb-3">
+                                <label for="comp-name">name</label>
+                                <input name="name" type="text" id="comp-name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Action</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalJobForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="jobForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Title</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4 id">
+                                <label for="job-id_job">id_job</label>
+                                <input min="0" name="id_job" type="number" id="job-id_job" class="form-control" readonly>
+                            </div>
+                    
+                            <div class="form-group mb-4">
+                                <label for="job-description">description</label>
+                                <textarea maxlength="990" name="description" id="job-description" class="form-control" rows="5" cols="75" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' required></textarea>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="job-wage">wage</label>
+                                <input name="wage" type="text" id="job-wage" class="form-control" required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="job-place">place</label>
+                                <input name="place" type="text" id="job-place" class="form-control" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="job-working_time">working_time</label>
+                                <input name="working_time" type="text" id="job-working_time" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Action</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalPeopleForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="peopleForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Title</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4 id">
+                                <label for="ppl-id">id</label>
+                                <input min="0" name="id" type="number" id="ppl-id" class="form-control" readonly>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="ppl-first_name">first_name</label>
+                                <input name="first_name" type="text" id="ppl-first_name" class="form-control" required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="ppl-last_name">last_name</label>
+                                <input name="last_name" type="text" id="ppl-last_name" class="form-control" required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="ppl-email">email</label>
+                                <input name="email" type="email" id="ppl-email" class="form-control" required>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="ppl-phone">phone</label>
+                                <input name="phone" type="tel" id="ppl-phone" class="form-control" pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$" required>
+                            </div>
+
+                            <div id="password" class="form-group mb-3">
+                                <label for="ppl-password">password</label>
+                                <input name="password" type="text" id="ppl-password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Action</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalRelationForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="relationForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Title</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4 id">
+                                <label for="rel-id_ad">id_ad</label>
+                                <input min="0" name="id_ad" type="number" id="rel-id_ad" class="form-control" readonly>
+                            </div>
+
+                            <div class="form-group mb-4 id">
+                                <label for="rel-id_people">id_people</label>
+                                <input min="0" name="id_people" type="number" id="rel-id_people" class="form-control" readonly>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="rel-is_in_charge">is_in_charge</label>
+                                <input name="is_in_charge" type="checkbox" id="rel-is_in_charge" class="form-control">
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label for="rel-data_mail">data_mail</label>
+                                <textarea maxlength="1000" name="data_mail" id="rel-data_mail" class="form-control" rows="5" cols="75" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Action</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="dataConfirmDelModal" class="modal fade" tabindex="-1" aria-labelledby="dataConfirmLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="dataConfirmLabel">Please confirm</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        Do you really want to delete this row of data ?
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-light" data-dismiss="modal" aria-hidden="true">No</button>
+                        <button class="btn btn-danger dataConfirmDel" aria-hidden="true">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="jquery.serializejson.js"></script>
+        <script src="main.js"></script>
+
+        <title>JobBoard</title>
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-light bg-light">
+                <ul id="nav1" class="nav"> 
+                    <li class="nav-item">
+                        &nbsp;&nbsp;
+                        <button type="button" class="btn btn-outline-primary rounded-pill" data-toggle="modal" data-target="#modalRegisterForm" id="btn-register">Register</button>
+                    </li>
+                    <li class="nav-item">
+                        &nbsp;&nbsp;
+                        <button type="button" class="btn btn-outline-primary rounded-pill" data-toggle="modal" data-target="#modalLoginForm" id="btn-login">Login</button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="bg-primary">
+        </section>
+
+        <section id="main">
+        <!--<article>
+                <div id="card1" class="card border-secondary">
+                    <div class="card-header text-white bg-primary">
+                        <h5 class="card-title">Card title</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="offer.html" class="card-link learn_more">Learn more</a>
+                    </div>
+                </div>
+            </article>
+
+            <article>
+                <div class="card border-secondary">
+                    <div class="card-header text-white bg-primary">
+                        <h5 class="card-title">Card title</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link learn_more">Learn more</a>
+                    </div>
+                </div>
+            </article>-->
+        </section>
+
+        <div class="modal fade" id="modalRegisterForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="registerForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-row">
+                                <div class="form-group col mb-4">
+                                    <label for="r-fname">Your first name</label>
+                                    <input name="first_name" type="text" id="r-fname" class="form-control" placeholder="First name" required>
+                                </div>
+                    
+                                <div class="form-group col mb-4">
+                                    <label for="r-lname">Your last name</label>
+                                    <input name="last_name" type="text" id="r-lname" class="form-control" placeholder="Last name" required>
+                                </div>
+                            </div>
+                    
+                            <div class="form-group mb-4">
+                                <label for="r-phone">Your phone</label>
+                                <input name="phone" type="tel" id="r-phone" class="form-control"
+                                    pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$" placeholder="Phone" required>
+                            </div>
+                    
+                            <div class="form-group mb-4">
+                                <label for="r-email">Your email</label>
+                                <input name="email" type="email" id="r-email" class="form-control" placeholder="Email" required>
+                            </div>
+                    
+                            <div class="form-group mb-3">
+                                <label for="r-password">Your password</label>
+                                <input name="password" type="password" id="r-password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div id ="register-success" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;" >
+                                <strong>Thank you !</strong> You registered with success.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id ="register-fail" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;" >
+                                <strong>Error !</strong> Email already used.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="loginForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4">
+                                <label for="l-email">Your email</label>
+                                <input name="email" type="email" id="l-email" class="form-control" placeholder="Email" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="l-password">Your password</label>
+                                <input name="password" type="password" id="l-password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div id ="login-success" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;" >
+                                <strong>Congrats !</strong> You are correctly logged in.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id ="login-fail" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;" >
+                                <strong>Error !</strong> Email or password incorrect.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+        
+        <div class="modal fade" id="modalSettings" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="settingsForm" method="post">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Change password</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <div class="form-group mb-4">
+                                <label for="s-email">Your email</label>
+                                <input name="email" type="email" id="s-email" class="form-control" placeholder="Email" required readonly>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="act-password">Actual password</label>
+                                <input name="actual_password" type="password" id="act-password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="new-password">New password</label>
+                                <input name="new_password" type="password" id="new-password" class="form-control" placeholder="Password" required>
+                            </div>
+                            <div id ="loginchange-success" class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;" >
+                                <strong>Congrats !</strong> You changed your password.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id ="loginchange-fail" class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;" >
+                                <strong>Error !</strong> Password incorrect.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary w-25">Change</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
