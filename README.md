@@ -1,5 +1,3 @@
-# T-WEB-501-LYN-5-1-jobboard-mathis.thomas
-
 > JobBoard project
 
 ## Setup Database
